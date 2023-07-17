@@ -5,9 +5,6 @@
 
 - This module can get the network speed of the current device. Since I don't know much about app development, there may be many bugs, and I haven't had time to solve them yet, so use it with caution.<br/>
 - Android can obtain the network speed of the entire mobile phone and the current `app`, while `ios` can only obtain the network speed of the entire mobile phone at present. After searching the Internet for a long time, `ios` failed to find a method that can accurately count the network speed of a single `app`
-- this module can show the network speed.
-- for IOS : currently only the network speed of the entire device can be obtained
-- I am not good at developing apps ☹
 
 ## Getting started
 
