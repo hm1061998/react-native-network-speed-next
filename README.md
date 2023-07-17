@@ -1,5 +1,5 @@
 [![NPM version](https://badgen.net/npm/v/react-native-network-speed-next)](https://www.npmjs.com/package/react-native-network-speed-next)
-[![NPM download week](https://badgen.net/npm/dw/react-native-network-speed-next)](https://www.npmjs.com/package/react-native-network-speed-next-next)
+[![NPM download week](https://badgen.net/npm/dw/react-native-network-speed-next)](https://www.npmjs.com/package/react-native-network-speed-next)
 
 # react-native-network-speed-next
 
