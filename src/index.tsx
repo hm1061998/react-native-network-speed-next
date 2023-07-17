@@ -1,22 +1,37 @@
-import { NativeModules, Platform } from 'react-native';
+import { NativeModules, NativeEventEmitter } from 'react-native';
+import type { EmitterSubscription } from 'react-native';
+const { RNNetworkSpeed } = NativeModules;
 
-const LINKING_ERROR =
-  `The package 'react-native-network-speed-next' doesn't seem to be linked. Make sure: \n\n` +
-  Platform.select({ ios: "- You have run 'pod install'\n", default: '' }) +
-  '- You rebuilt the app after installing the package\n' +
-  '- You are not using Expo Go\n';
+class NetworkSpeed {
+  subscription: EmitterSubscription | any;
+  emitter: NativeEventEmitter;
+  constructor() {
+    this.emitter = new NativeEventEmitter(RNNetworkSpeed);
+  }
 
-const NetworkSpeedNext = NativeModules.NetworkSpeedNext
-  ? NativeModules.NetworkSpeedNext
-  : new Proxy(
-      {},
-      {
-        get() {
-          throw new Error(LINKING_ERROR);
-        },
-      }
-    );
+  startListenNetworkSpeed(
+    callback: () => {
+      downLoadSpeed: number;
+      downLoadSpeedCurrent: number | any;
+      upLoadSpeed: number;
+      upLoadSpeedCurrent: number | any;
+    }
+  ) {
+    if (!callback || typeof callback !== 'function') {
+      throw new Error('callback need a function');
+    }
 
-export function multiply(a: number, b: number): Promise<number> {
-  return NetworkSpeedNext.multiply(a, b);
+    RNNetworkSpeed.startListenNetworkSpeed();
+    this.subscription = this.emitter.addListener('onSpeedUpdate', callback);
+  }
+
+  stopListenNetworkSpeed() {
+    if (this.subscription) {
+      RNNetworkSpeed.stopListenNetworkSpeed();
+      this.subscription.remove();
+      this.subscription = null;
+    }
+  }
 }
+
+export default NetworkSpeed;
